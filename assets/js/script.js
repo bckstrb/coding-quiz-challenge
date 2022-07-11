@@ -60,12 +60,34 @@ function renderQuestion() {
   questionContainer.innerHTML = `
     <h2>${questions[currentQuestion].question}</h2>
     <ul>
-        <li>${questions[currentQuestion].options["a"]}</li>
-        <li>${questions[currentQuestion].options["b"]}</li>
-        <li>${questions[currentQuestion].options["c"]}</li>
-        <li>${questions[currentQuestion].options["d"]}</li>
+        <li class="option" data-option='a'>${questions[currentQuestion].options["a"]}</li>
+        <li class="option" data-option='b'>${questions[currentQuestion].options["b"]}</li>
+        <li class="option" data-option='c'>${questions[currentQuestion].options["c"]}</li>
+        <li class="option" data-option='d'>${questions[currentQuestion].options["d"]}</li>
     </ul>
     `;
+
+  var optionsLi = document.querySelectorAll(".option");
+  optionsLi.forEach(function (option) {
+    option.addEventListener("click", evaluateAnswer);
+  });
+}
+
+function evaluateAnswer(event) {
+  console.log("selected answer " + event.target.dataset.option);
+  //evaluate correct or incorect
+  let correct = event.target.dataset.option === questions[currentQuestion].answer
+  let feedbackText;
+  if (correct) {
+    feedbackText = "you got it right";
+  } else feedbackText = "you got it wrong";
+
+  //adjust their score accordingly
+
+  currentQuestion++;
+  renderQuestion();
+  document.getElementById("feedback").classList.remove("hidden");
+  document.getElementById("feedback").textContent = feedbackText;
 }
 
 function startTimer() {
@@ -76,14 +98,14 @@ function startTimer() {
     timerEl.textContent = secondsRemaining;
     //if it hits 0, end the interval and endGame()
 
-    if (secondsRemaining<=0){
-        clearInterval(timerId)
-        endGame()
+    if (secondsRemaining <= 0) {
+      clearInterval(timerId);
+      endGame();
     }
   }, 1000);
 }
 
-function endGame(){}
+function endGame() {}
 
 //-start function for timer
 
