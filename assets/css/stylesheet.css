@@ -1,5 +1,6 @@
 html {
   box-sizing: border-box;
+  /*background-color: rgb(2, 2, 37);*/
 }
 
 .container {
@@ -16,10 +17,53 @@ html {
   
   .welcome {
     margin-bottom: 20px;
-    color: rgb(136, 16, 86);
+    color: rgb(92, 1, 54);
     font-size: 50px;
   }
 
-.hidden {
-  display: none;
-}
+  .hidden {
+    display: none;
+  }
+
+  #question-container {
+    width: 600px;
+    max-width: 80%;
+    background-color: rgb(255, 47, 0);
+    border-radius: 5px;
+    color: antiquewhite;
+    text-align: center;
+    padding: 5px;
+    margin: auto;
+  }
+
+  ul {
+    list-style-type: none;
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 1.5em;
+  }
+
+  #start-button {
+    background-color: rgb(7, 45, 27);
+    color: antiquewhite;
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    position: absolute;
+    top: 57%;
+    left: 50%;
+  }
+  
+  #scores-button {
+    background-color: rgb(7, 45, 27);
+    color: antiquewhite;
+    font-size: 20px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    position: absolute;
+    top: 64%;
+    left: 47%;
+  }
+

@@ -1,33 +1,33 @@
 var questions = [
   {
-    question: "What is the air speed velocity of an unladen swallow?",
+    question: "Which program is used to add styling to a webpage?",
     options: {
-      a: "120 km/h",
-      b: "100 km/h",
-      c: "80 km/h",
-      d: "50 km/h",
+      a: "a. html",
+      b: "b. css",
+      c: "c. javascript",
+      d: "d. jquery",
+    },
+    answer: "b",
+  },
+  {
+    question: "Which of the following are a data type?",
+    options: {
+      a: "a. string",
+      b: "b. rope",
+      c: "c. cord",
+      d: "d. wire",
     },
     answer: "a",
   },
   {
-    question: "What is the most iconic album cover?",
+    question: "in javascript, what is a block of code called that is used to perform a specific task?",
     options: {
-      a: "Elvis",
-      b: "Sgt. Peppers Lonely Hearts Club Band",
-      c: "The Clash",
-      d: "AC/DC",
+      a: "a. declaration",
+      b: "b. variable",
+      c: "c. string",
+      d: "d. function",
     },
-    answer: "c",
-  },
-  {
-    question: "Which contitent is France located?",
-    options: {
-      a: "Asia",
-      b: "Antarctica",
-      c: "Europe",
-      d: "South America",
-    },
-    answer: "c",
+    answer: "d",
   },
 ];
 
@@ -42,13 +42,17 @@ var currentQuestion = 0;
 var startButtton = document.getElementById("start-button");
 var questionContainer = document.getElementById("question-container");
 var timerEl = document.getElementById("timer");
-var secondsRemaining = 5;
+var secondsRemaining = 55;
+var userScore = 0;
+var displayScore = document.getElementById("display-score");
+var highscoresButton = document.getElementById("scores-button");
 startButtton.addEventListener("click", startGame);
 
 function startGame() {
   startButtton.classList.add("hidden");
   timerEl.classList.remove("hidden");
   timerEl.textContent = secondsRemaining;
+  displayScore.classList.remove("hidden");
   //trigger timer
   startTimer();
   renderQuestion();
@@ -83,6 +87,10 @@ function evaluateAnswer(event) {
   } else feedbackText = "you got it wrong";
 
   //adjust their score accordingly
+  if (correct) userScore += 5 
+  else {userScore -= 5};
+  
+  displayScore.textContent = userScore
 
   currentQuestion++;
   renderQuestion();
@@ -107,40 +115,6 @@ function startTimer() {
 
 function endGame() {}
 
-//-start function for timer
 
-//-
 
-// Which program is used to add styling to a webpage?
-// a.HTML
-// b.CSS
-// c.Javascript
-// d.jQuery
 
-// Which of the following are a date type?
-// a.String
-// b.Rope
-// c.Cord
-// d.Wire
-
-// In JavaScript, what is a block of code called that is used to perform a specific task?
-// a.declaration
-// b.variable
-// c.string
-// d.function
-
-//-need event clicker to start quiz
-
-//set of questions with options for answers
-//-4-5 questions with muliple choice answers-array
-//-does it need a score associated with the answer?
-//-need event clicker
-//-prompts if wrong
-//-a way to calculate score
-//--data attributes?
-//--local storage
-
-//submit high scores
-//-submit button
-
-//local storage-highscores
