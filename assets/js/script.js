@@ -42,11 +42,15 @@ var currentQuestion = 0;
 var startButtton = document.getElementById("start-button");
 var questionContainer = document.getElementById("question-container");
 var timerEl = document.getElementById("timer");
-var secondsRemaining = 55;
+var secondsRemaining = 5;
 var userScore = 0;
 var displayScore = document.getElementById("display-score");
-var highscoresButton = document.getElementById("scores-button");
+var displayFeedback = document.getElementById("feedback");
+var scoreForm = document.getElementById("highscore");
+var submitButton = document.getElementById("submit-score");
+
 startButtton.addEventListener("click", startGame);
+
 
 function startGame() {
   startButtton.classList.add("hidden");
@@ -83,8 +87,8 @@ function evaluateAnswer(event) {
   let correct = event.target.dataset.option === questions[currentQuestion].answer
   let feedbackText;
   if (correct) {
-    feedbackText = "you got it right";
-  } else feedbackText = "you got it wrong";
+    feedbackText = "that's correct!";
+  } else feedbackText = "... wrong 😔";
 
   //adjust their score accordingly
   if (correct) userScore += 5 
@@ -113,8 +117,47 @@ function startTimer() {
   }, 1000);
 }
 
-function endGame() {}
+function endGame() {
+    timerEl.textContent = " ";
+    var imgEl = document.createElement("img");
+    imgEl.setAttribute("src", "./assets/gameover.png");
+    imgEl.setAttribute("style", "display:block; margin-left:auto; margin-right:auto");
+    questionContainer.replaceWith(imgEl); 
+    endScores(); 
+}
+
+//this will gather the score and initials when game ends
+function endScores() {
+    // display the form
+    scoreForm.classList.remove("hide-form");
+    enterScore ();
+}
+
+// store info for particular user in localstorage
+function enterScore() {
+submitButton.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    var endResults = {
+        initials: initials.value,
+        score: score.value
+    };
+
+    localStorage.setItem("endResults", JSON.stringify(endResults));
+    renderMessage();
+});
+}
+
+// function renderMessage() {
+//     var finalScore = JSON.parse(localStorage.getItem("endResult"));
+//     if (finalScore !== null) {
+//         document.querySelector(".message").textContent = "your final score is " + finalScore.initials
+//     }
+// }
 
 
 
 
+timerEl.setAttribute("style", "font-size: 50px; font-weight: bold; color: rgb(7, 45, 27)");
+displayScore.setAttribute("style", "font-size: 50px; font-weight: bold; color: rgb(7, 45, 27)")
+displayFeedback.setAttribute("style", "font-size:50px; font-weight: bold; color: rgb(7, 45, 27); text-align: center")

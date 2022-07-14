@@ -27,8 +27,14 @@
     </div>  
     <div id="feedback" class="hidden"></div>        
     <div>
-        <button id="scores-button">highscores</button>
-   </div>
+    <form id="highscore" class="hide-form">
+        <label id="initials">initials</label><br>
+        <input type="text" id="initials" name="initials"><br>
+        <label id="score">score</label><br>
+        <input type="text" id="score" name="score"><br>
+        <p class="message"></p>
+        <button type="submit" id="submit-score">submit</button>
+    </form>
    <script src="./assets/js/script.js"></script> 
   </body>
 </html>
