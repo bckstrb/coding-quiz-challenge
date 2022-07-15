@@ -20,7 +20,8 @@ var questions = [
     answer: "a",
   },
   {
-    question: "in javascript, what is a block of code called that is used to perform a specific task?",
+    question:
+      "in javascript, what is a block of code called that is used to perform a specific task?",
     options: {
       a: "a. declaration",
       b: "b. variable",
@@ -42,7 +43,7 @@ var currentQuestion = 0;
 var startButtton = document.getElementById("start-button");
 var questionContainer = document.getElementById("question-container");
 var timerEl = document.getElementById("timer");
-var secondsRemaining = 5;
+var secondsRemaining = 10;
 var userScore = 0;
 var displayScore = document.getElementById("display-score");
 var displayFeedback = document.getElementById("feedback");
@@ -50,7 +51,6 @@ var scoreForm = document.getElementById("highscore");
 var submitButton = document.getElementById("submit-score");
 
 startButtton.addEventListener("click", startGame);
-
 
 function startGame() {
   startButtton.classList.add("hidden");
@@ -64,6 +64,10 @@ function startGame() {
 
 function renderQuestion() {
   //show question container
+  if (currentQuestion >= questions.length) {
+    return;
+  }
+  console.log(questions[currentQuestion]);
   questionContainer.classList.remove("hidden");
   questionContainer.innerHTML = `
     <h2>${questions[currentQuestion].question}</h2>
@@ -84,17 +88,20 @@ function renderQuestion() {
 function evaluateAnswer(event) {
   console.log("selected answer " + event.target.dataset.option);
   //evaluate correct or incorect
-  let correct = event.target.dataset.option === questions[currentQuestion].answer
+  let correct =
+    event.target.dataset.option === questions[currentQuestion].answer;
   let feedbackText;
   if (correct) {
     feedbackText = "that's correct!";
   } else feedbackText = "... wrong 😔";
 
   //adjust their score accordingly
-  if (correct) userScore += 5 
-  else {userScore -= 5};
-  
-  displayScore.textContent = userScore
+  if (correct) userScore += 5;
+  else {
+    userScore -= 5;
+  }
+
+  displayScore.textContent = userScore;
 
   currentQuestion++;
   renderQuestion();
@@ -118,46 +125,66 @@ function startTimer() {
 }
 
 function endGame() {
-    timerEl.textContent = " ";
-    var imgEl = document.createElement("img");
-    imgEl.setAttribute("src", "./assets/gameover.png");
-    imgEl.setAttribute("style", "display:block; margin-left:auto; margin-right:auto");
-    questionContainer.replaceWith(imgEl); 
-    endScores(); 
+  timerEl.textContent = " ";
+  var imgEl = document.createElement("img");
+  imgEl.setAttribute("src", "./assets/gameover.png");
+  imgEl.setAttribute(
+    "style",
+    "display:block; margin-left:auto; margin-right:auto"
+  );
+  questionContainer.replaceWith(imgEl);
+  endScores();
 }
 
-//this will gather the score and initials when game ends
+//this will populate the form togather the score and initials when game ends
 function endScores() {
-    // display the form
-    scoreForm.classList.remove("hide-form");
-    enterScore ();
+  // display the form
+  scoreForm.classList.remove("hide-form");
 }
 
-// store info for particular user in localstorage
-function enterScore() {
-submitButton.addEventListener("click", function(event) {
-    event.preventDefault();
+//store info for particular user in localstorage
+function enterScore(event) {
+  event.preventDefault();
+  var endResults = JSON.parse(localStorage.getItem("endResults")) || [];
+  console.log(endResults);
+  var initialInput = document.getElementById("initial-input");
+  var scoreInput = document.getElementById("score-input");
 
-    var endResults = {
-        initials: initials.value,
-        score: score.value
-    };
+  var latestScore = {
+    initialInput: initialInput.value,
+    scoreInput: scoreInput.value,
+  };
 
-    localStorage.setItem("endResults", JSON.stringify(endResults));
-    renderMessage();
-});
+  endResults.push(latestScore);
+
+  localStorage.setItem("endResults", JSON.stringify(endResults));
+  renderMessage();
 }
 
-// function renderMessage() {
-//     var finalScore = JSON.parse(localStorage.getItem("endResult"));
-//     if (finalScore !== null) {
-//         document.querySelector(".message").textContent = "your final score is " + finalScore.initials
-//     }
-// }
+function renderMessage() {
+  var scoreList = document.getElementById("score-list");
+  var endResults = JSON.parse(localStorage.getItem("endResults")) || [];
+  if (endResults.length > 0) {
+    for (var i = 0; i < endResults.length; i++) {
+      var eachScore = document.createElement("li");
+      eachScore.textContent = endResults[i].initialInput + ": " + endResults[i].scoreInput;
+      
+      scoreList.append(eachScore);
+    }
+  }
+}
 
+submitButton.addEventListener("click", enterScore);
 
-
-
-timerEl.setAttribute("style", "font-size: 50px; font-weight: bold; color: rgb(7, 45, 27)");
-displayScore.setAttribute("style", "font-size: 50px; font-weight: bold; color: rgb(7, 45, 27)")
-displayFeedback.setAttribute("style", "font-size:50px; font-weight: bold; color: rgb(7, 45, 27); text-align: center")
+timerEl.setAttribute(
+  "style",
+  "font-size: 50px; font-weight: bold; color: rgb(5, 61, 35)"
+);
+displayScore.setAttribute(
+  "style",
+  "font-size: 50px; font-weight: bold; color: rgb(5, 61, 35)"
+);
+displayFeedback.setAttribute(
+  "style",
+  "font-size:50px; font-weight: bold; color: rgb(5, 61, 35); text-align: center"
+);
