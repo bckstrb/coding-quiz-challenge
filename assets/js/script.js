@@ -43,7 +43,7 @@ var currentQuestion = 0;
 var startButtton = document.getElementById("start-button");
 var questionContainer = document.getElementById("question-container");
 var timerEl = document.getElementById("timer");
-var secondsRemaining = 10;
+var secondsRemaining = 5;
 var userScore = 0;
 var displayScore = document.getElementById("display-score");
 var displayFeedback = document.getElementById("feedback");
@@ -167,8 +167,9 @@ function renderMessage() {
   if (endResults.length > 0) {
     for (var i = 0; i < endResults.length; i++) {
       var eachScore = document.createElement("li");
-      eachScore.textContent = endResults[i].initialInput + ": " + endResults[i].scoreInput;
-      
+      eachScore.textContent =
+        endResults[i].initialInput + ": " + endResults[i].scoreInput;
+
       scoreList.append(eachScore);
     }
   }
