@@ -14,4 +14,4 @@ This app allows a user to take a short, timed coding quiz that will notify them 
 
 ## Contact
 
-[Link to GitHub Repo](https://bckstrb.github.io/coding-quiz-challenge/)
+[GitHub Repo](https://bckstrb.github.io/coding-quiz-challenge/)
